@@ -27,7 +27,7 @@ true "
 case "$1" in
     configure)
 
-        gcc -nostartfiles -fpic -shared --entry main /usr/lib/bindp.c -o /usr/lib/libindp.so -ldl -D_GNU_SOURCE -pie -Wdate-time -D_FORTIFY_SOURCE=2 -g -O2 -fdebug-prefix-map=/build/bindp-0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -Wl,-z,now
+        gcc -nostartfiles -fpic -shared --entry main /usr/lib/bindp.c -o /usr/lib/libindp.so -ldl -D_GNU_SOURCE -pie -Wdate-time -D_FORTIFY_SOURCE=3 -g -O2 -fdebug-prefix-map=/build/bindp-0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -Wl,-z,now
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
