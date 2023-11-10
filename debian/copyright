@@ -72,7 +72,7 @@ License: GPL-3+-with-additional-terms-1
  ATTORNEYS' FEES AND EXPENSES) OR ANY OTHER LIABILITY ARISING FROM, RELATED TO OR
  IN CONNECTION WITH YOUR ASSUMPTIONS OF LIABILITY.
 
-Files: usr/lib/bindp.c
+Files: bindp.c
 Copyright: Copyright (C) 2014 nieyong <nieyong@staff.weibo.com>
 License: GPL-2.1+
  This program is free software: you can redistribute it and/or modify

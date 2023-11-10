@@ -1,6 +1,4 @@
 ## Copyright (C) 2020 - 2023 ENCRYPTED SUPPORT LP <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
-## This file was generated using genmkfile 'make debinstfile'.
-
-usr/*
+bindp.c usr/lib/
