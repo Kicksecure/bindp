@@ -1,3 +1,55 @@
+commit 79fc87ae5ad933f7b9bf6bbbe97c31225831e74c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Nov 11 15:10:36 2023 -0500
+
+    copyright
+
+commit 805a9e0d83b04669e7def7e2a12f5cbb3d660e91
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 10 13:35:47 2023 -0500
+
+    file moved
+
+commit 34521338a895aae64aa0560fd94a1390bd213b4e
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 10 13:27:32 2023 -0500
+
+    renamed:    usr/lib/bindp.c -> bindp.c
+
+commit f07fc401ec0fbce1e4e1947fa9106d8a517cbe4c
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 10 13:26:38 2023 -0500
+
+    restore upstream .gitignore
+
+commit 9c04d900d2989df50b47b5caf92e128d4a788022
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 10 13:26:00 2023 -0500
+
+    restore upstream Makefile
+
+commit 79e739344905fc146f19171e3cb498e6bd1951be
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 10 13:20:42 2023 -0500
+
+    Revert "Merge remote-tracking branch 'yongboy/master'"
+    
+    This reverts commit 2db98875da92a4fa3840bc466ba091603311ef67, reversing
+    changes made to c64b3e4de5e62bd80c075c5695eef511d8331e59.
+
+commit 2db98875da92a4fa3840bc466ba091603311ef67
+Merge: c64b3e4 1d98bf4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Nov 10 13:19:25 2023 -0500
+
+    Merge remote-tracking branch 'yongboy/master'
+
+commit c64b3e4de5e62bd80c075c5695eef511d8331e59
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Jul 17 11:32:34 2023 -0400
+
+    bumped changelog version
+
 commit 352d9e9a1442be771f42232e6a1a5ac073b2da09
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Jul 17 11:17:20 2023 -0400
@@ -426,6 +478,18 @@ Date:   Thu Dec 21 20:26:27 2017 +0000
 
     readme
 
+commit 1d98bf41a39e2987cd071ba587aa2e2fe15f3f69
+Author: nieyong <nieyong@staff.weibo.com>
+Date:   Thu Nov 23 15:12:30 2017 +0800
+
+    remove unsed files
+
+commit 57655ec51fac4471836e3f7d62bb4dc53da38ea3
+Author: nieyong <nieyong@staff.weibo.com>
+Date:   Thu Nov 23 15:08:19 2017 +0800
+
+    reset README.md for fcb2f84952dc5ec3b1883ab437541d67ede6dc56
+
 commit 6ed6331c5e1c561ed72e52ca4d2ff6757cb61abb
 Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Nov 21 22:41:25 2017 +0000
@@ -484,6 +548,24 @@ Author: JasonJAyalaP <JasonJAyalaP+Github@Gmail.com>
 Date:   Sat Jul 8 16:54:00 2017 -0500
 
     bindppost
+
+commit e8d1abd5cce5bb383aea2ee8c63466749e172314
+Merge: b8e01ca 5744195
+Author: yongboy <yongboy@gmail.com>
+Date:   Mon Jul 3 11:58:55 2017 +0800
+
+    Merge pull request #4 from adrelanos/patch-2
+    
+    fix typo
+
+commit b8e01ca7e494fc24575a61aa5cee45cb8e616798
+Merge: 3656d46 8b62ed3
+Author: yongboy <yongboy@gmail.com>
+Date:   Mon Jul 3 11:57:49 2017 +0800
+
+    Merge pull request #6 from Whonix/address-family-check
+    
+    security fixes, debian packaging, and more
 
 commit 160af6302118923a0275fe9c087376db0bc4c57a
 Author: Patrick Schleizer <adrelanos@riseup.net>
@@ -679,6 +761,12 @@ Date:   Mon Feb 13 17:35:14 2017 +0000
     debian packaging
     
     split from uwt package into this standalone package
+
+commit 57441955bcf2890212b94a48165a35cd17b8f7b5
+Author: Patrick Schleizer <adrelanos@riseup.net>
+Date:   Tue Jan 24 21:57:32 2017 +0100
+
+    fix typo
 
 commit 3656d46afd047975a294be99cc6e97e7576aa90b
 Merge: fcb2f84 587311a
