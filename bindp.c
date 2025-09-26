@@ -45,9 +45,12 @@
    email: nieyong@staff.weibo.com
    web:   http://www.blogjava.net/yongboy
 */
+#define _GNU_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
+#include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -60,16 +63,33 @@ int debug_enabled = 0;
 int (*real_bind)(int, const struct sockaddr *, socklen_t);
 int (*real_connect)(int, const struct sockaddr *, socklen_t);
 
-uint32_t bind_addr_saddr = 0;
+in_addr_t bind_addr_saddr = 0;
 struct sockaddr_in local_sockaddr_in[] = { 0 };
 
-unsigned int bind_port_saddr = 0;
-unsigned int reuse_port = 0;
-unsigned int reuse_addr = 0;
-unsigned int ip_transparent = 0;
+in_port_t bind_port_saddr = 0;
+int32_t reuse_port = 0;
+int32_t reuse_addr = 0;
+int32_t ip_transparent = 0;
+
+int32_t parse_int_flag(const char *flag_str, const char *flag_name) {
+    if (strcmp(flag_str, "0") == 0) {
+        return 0;
+    } else if (strcmp(flag_str, "1") == 0) {
+        return 1;
+    } else {
+        fprintf(stderr, "invalid value '%s' for variable '%s'\n", flag_str,
+            flag_name);
+        return 0;
+    }
+}
 
 void _init (void) {
-    const char *err;
+    const char *err = NULL;
+    char *bind_addr_env = NULL;
+    char *bind_port_env = NULL;
+    char *reuse_addr_env = NULL;
+    char *reuse_port_env = NULL;
+    char *ip_transparent_env = NULL;
 
     real_bind = dlsym (RTLD_NEXT, "bind");
     if ((err = dlerror ()) != NULL) {
@@ -81,33 +101,46 @@ void _init (void) {
         fprintf (stderr, "dlsym (connect): %s\n", err);
     }
 
-    char *bind_addr_env;
     if ((bind_addr_env = getenv ("BIND_ADDR"))) {
-        bind_addr_saddr = inet_addr (bind_addr_env);
+        struct in_addr temp_in_addr = { 0 };
+        int inet_aton_rslt = inet_aton (bind_addr_env, &temp_in_addr);
         local_sockaddr_in->sin_family = AF_INET;
-        local_sockaddr_in->sin_addr.s_addr = bind_addr_saddr;
         local_sockaddr_in->sin_port = htons (0);
+        if (inet_aton_rslt == 1) {
+            bind_addr_saddr = temp_in_addr.s_addr;
+            local_sockaddr_in->sin_addr.s_addr = bind_addr_saddr;
+        } else {
+            fprintf (stderr, "invalid value '%s' for variable 'BIND_ADDR'\n",
+                bind_addr_env);
+            local_sockaddr_in->sin_addr.s_addr = htons (0);
+        }
     }
 
-    char *bind_port_env;
     if ((bind_port_env = getenv ("BIND_PORT"))) {
-        bind_port_saddr = atoi(bind_port_env);
-        local_sockaddr_in->sin_port = htons (bind_port_saddr);
+        long temp = 0;
+
+        errno = 0;
+        temp = strtol(bind_port_env, NULL, 10);
+        if (errno == 0 && temp >= 0 && temp <= 65535) {
+            bind_port_saddr = (in_port_t)temp;
+            local_sockaddr_in->sin_port = htons (bind_port_saddr);
+        } else {
+            fprintf (stderr, "invalid value '%ld' for variable 'BIND_PORT'\n",
+                temp);
+            local_sockaddr_in->sin_port = htons (0);
+        }
     }
 
-    char *reuse_addr_env;
     if ((reuse_addr_env = getenv ("REUSE_ADDR"))) {
-        reuse_addr = atoi(reuse_addr_env);
+        reuse_addr = parse_int_flag (reuse_addr_env, "REUSE_ADDR");
     }
 
-    char *reuse_port_env;
     if ((reuse_port_env = getenv ("REUSE_PORT"))) {
-        reuse_port = atoi(reuse_port_env);
+        reuse_port = parse_int_flag (reuse_port_env, "REUSE_PORT");
     }
 
-    char *ip_transparent_env;
     if ((ip_transparent_env = getenv ("IP_TRANSPARENT"))) {
-        ip_transparent = atoi(ip_transparent_env);
+        ip_transparent = parse_int_flag (ip_transparent_env, "IP_TRANSPARENT");
     }
 }
 
@@ -116,7 +149,7 @@ unsigned short get_address_family(const struct sockaddr *sk) {
         As defined in linux/socket.h ,__kernel_sa_family_t is 2 bytes wide.
         We read the first two bytes of sk without using cast to protocol families
     */
-    unsigned short _pf = *((unsigned short*) sk);
+    unsigned short _pf = *((const unsigned short*) sk);
     return _pf;
 }
 
@@ -128,14 +161,34 @@ int bind (int fd, const struct sockaddr *sk, socklen_t sl) {
         {
             static struct sockaddr_in *lsk_in;
 
+            /*
+             * We intentionally discard the const qualifier as we do indeed
+             * change the pointed-to memory of sk later on.
+             *
+             * TODO: Modifying a const pointer is a horrible idea. Is there
+             * some reason we can't copy sk to a non-const struct, modify it,
+             * and pass that to real_bind?
+             *
+             * We also don't have to worry about alignment here because sk
+             * actually contains a sockaddr_in when the address family is
+             * AF_INET.
+             */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-qual"
+#pragma GCC diagnostic ignored "-Wcast-align"
             lsk_in = (struct sockaddr_in *)sk;
+#pragma GCC diagnostic pop
 
             if (debug_enabled) {
                 char original_ip [INET_ADDRSTRLEN];
+                int original_port = 0;
+                char *l_bind_addr = NULL;
+                char *l_bind_port = NULL;
+
                 inet_ntop(AF_INET,&(lsk_in->sin_addr),original_ip,INET_ADDRSTRLEN);
-                int original_port = ntohs(lsk_in->sin_port);
-                char *l_bind_addr = getenv ("BIND_ADDR");
-                char *l_bind_port = getenv ("BIND_PORT");
+                original_port = ntohs(lsk_in->sin_port);
+                l_bind_addr = getenv ("BIND_ADDR");
+                l_bind_port = getenv ("BIND_PORT");
                 printf("[-] LIB received AF_INET bind request\n");
                 if (l_bind_addr && l_bind_port) {
                     printf("[-] Changing %s:%d to %s:%s\n" , original_ip,original_port,l_bind_addr,l_bind_port);
@@ -194,7 +247,6 @@ int bind (int fd, const struct sockaddr *sk, socklen_t sl) {
 #endif
 
     if (ip_transparent) {
-        int opt =1;
         setsockopt(fd, SOL_IP, IP_TRANSPARENT, &ip_transparent, sizeof(ip_transparent));
     }
 
@@ -214,13 +266,9 @@ int connect (int fd, const struct sockaddr *sk, socklen_t sl) {
         if (debug_enabled) {
             printf("[-] connect(): AF_INET connect() call, binding to local address\n");
         }
-        static struct sockaddr_in *rsk_in;
-
-        rsk_in = (struct sockaddr_in *)sk;
 
         if (bind_addr_saddr || bind_port_saddr) {
-            int r = bind (fd, (struct sockaddr *)local_sockaddr_in, sizeof (struct sockaddr));
-
+            bind (fd, (struct sockaddr *)local_sockaddr_in, sizeof (struct sockaddr));
         }
         return real_connect (fd, sk, sl);
 
@@ -232,6 +280,7 @@ int connect (int fd, const struct sockaddr *sk, socklen_t sl) {
     }
 }
 
-int main(int argc,char **argv) {
+int main(__attribute__((unused)) int argc,
+    __attribute__((unused)) char **argv) {
     return 0;
 }
