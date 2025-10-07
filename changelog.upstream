@@ -1,3 +1,22 @@
+commit 5d009dc28987ab718d2f3ab3deccf50d3cfd5c88
+Merge: eafacf8 63d09ec
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 7 04:34:28 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit 63d09ec496785189345f84881d58227567ea8f2f
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Mon Oct 6 15:01:49 2025 -0500
+
+    Remove unsafe sanitizer compiler flags from bindp
+
+commit eafacf8b4ee17f7aac92e7d57deef7f1d05871cd
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Fri Sep 26 08:36:40 2025 +0000
+
+    bumped changelog version
+
 commit 41add1ec911cd5fde4fc70df1fa8e86d1bbbf29f
 Merge: a809aad 7f5c708
 Author: Patrick Schleizer <adrelanos@whonix.org>
