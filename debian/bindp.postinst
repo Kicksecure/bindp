@@ -26,8 +26,22 @@ true "
 
 case "$1" in
     configure)
-
-        gcc -nostartfiles -fpic -shared --entry main /usr/lib/bindp.c -o /usr/lib/libindp.so -ldl -D_GNU_SOURCE -pie -Wdate-time -D_FORTIFY_SOURCE=3 -g -O2 -fdebug-prefix-map=/build/bindp-0.3=. -fstack-protector-strong -Wformat -Werror=format-security -Wl,-z,relro -Wl,-z,now
+        if ! cd /usr/src/bindp ; then
+            printf '%s\n' "Cannot cd to '/usr/src/bindp'!" >&2
+            exit 1
+        fi
+        if ! make ; then
+            printf '%s\n' "Error building bindp!" >&2
+            exit 1
+        fi
+        if ! rm -f /usr/lib/libindp.so ; then
+            printf '%s\n' "Cannot remove old libindp.so!" >&2
+            exit 1
+        fi
+        if ! mv libindp.so /usr/lib/libindp.so ; then
+            printf '%s\n' "Cannot move libindp.so to '/usr/lib'!" >&2
+            exit 1
+        fi
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)

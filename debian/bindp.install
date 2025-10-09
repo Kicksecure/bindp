@@ -2,4 +2,4 @@
 ## See the file COPYING for copying conditions.
 
 ## nogenmkfile
-bindp.c usr/lib/
+usr/*
