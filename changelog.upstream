@@ -1,3 +1,28 @@
+commit 3b4a60af955e35b5c07ec5bf75d38db2d30ca8af
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Oct 9 11:35:30 2025 -0400
+
+    genmkfile debinstfile
+
+commit 740efc499134d196cafe5fddfd93b8827e25bd8b
+Merge: 7be242b c0592d2
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Oct 9 11:35:04 2025 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit c0592d2e284c7a0a6e825279c5ace87bb9a1f566
+Author: Aaron Rainbolt <arraybolt3@ubuntu.com>
+Date:   Wed Oct 8 21:17:39 2025 -0500
+
+    Use Makefile when building bindp in the postinst script
+
+commit 7be242b86dfb7a19068f53f98219777ef5eee004
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Tue Oct 7 08:35:37 2025 +0000
+
+    bumped changelog version
+
 commit 5d009dc28987ab718d2f3ab3deccf50d3cfd5c88
 Merge: eafacf8 63d09ec
 Author: Patrick Schleizer <adrelanos@whonix.org>
