@@ -259,7 +259,7 @@ int connect (int fd, const struct sockaddr *sk, socklen_t sl) {
         /*
             the default behavior of connect function is that when you
             don't specify BIND_PORT environmental variable it sets port 0 for
-            the local socket. OS network stack will choose a randome number
+            the local socket. OS network stack will choose a random number
             for the port in this case and also in the case of duplicate port
             numbers for client sockets
         */
