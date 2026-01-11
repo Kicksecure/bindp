@@ -1,3 +1,9 @@
+bindp (3:4.4-1) unstable; urgency=medium
+
+  * New upstream version (local package).
+
+ -- Patrick Schleizer <adrelanos@whonix.org>  Sun, 11 Jan 2026 16:21:26 +0000
+
 bindp (3:4.3-1) unstable; urgency=medium
 
   * New upstream version (local package).
