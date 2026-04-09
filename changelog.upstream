@@ -1,3 +1,22 @@
+commit 8d29164a6a13b72617a213b2652b6ba66b033cf1
+Merge: 9075b19 aa27cf3
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 9 07:51:42 2026 -0400
+
+    Merge remote-tracking branch 'ArrayBolt3/arraybolt3/trixie'
+
+commit aa27cf316e17249e0b1febc851779bfa06392ec7
+Author: Aaron Rainbolt <arraybolt3@gmail.com>
+Date:   Wed Apr 8 17:24:03 2026 -0400
+
+    Add additional compiler hardening flags
+
+commit 9075b19ac46c0d48bcf135972138353394438825
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 28 09:41:18 2026 +0000
+
+    bumped changelog version
+
 commit de91c0784e7f8dfc43185c46364c7d2502534e09
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Mar 28 05:30:08 2026 -0400
