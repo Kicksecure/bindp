@@ -1,3 +1,9 @@
+commit 2c88c8a98a8425f9d03db68599f0f379583e77a8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Thu Apr 16 12:23:49 2026 +0000
+
+    bumped changelog version
+
 commit 01f2aac887145f7542dcc3fc6f79aaef325c30df
 Merge: 1006eed c98073b
 Author: Patrick Schleizer <adrelanos@whonix.org>
@@ -901,12 +907,12 @@ Date:   Mon Mar 6 19:41:30 2017 +0000
     by adding #include <arpa/inet.h>
 
     gcc -nostartfiles -fpic -shared bindp.c -o libindp.so -ldl -D_GNU_SOURCE
-    bindp.c: In function ‘_init’:
-    bindp.c:83:27: warning: implicit declaration of function ‘inet_addr’ [-Wimplicit-function-declaration]
+    bindp.c: In function __init_:
+    bindp.c:83:27: warning: implicit declaration of function _inet_addr_ [-Wimplicit-function-declaration]
              bind_addr_saddr = inet_addr (bind_addr_env);
                                ^~~~~~~~~
-    bindp.c: In function ‘bind’:
-    bindp.c:129:21: warning: implicit declaration of function ‘inet_ntop’ [-Wimplicit-function-declaration]
+    bindp.c: In function _bind_:
+    bindp.c:129:21: warning: implicit declaration of function _inet_ntop_ [-Wimplicit-function-declaration]
                          inet_ntop(AF_INET,&(lsk_in->sin_addr),original_ip,INET_ADDRSTRLEN);
                          ^~~~~~~~~
 
